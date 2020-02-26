@@ -1,0 +1,119 @@
+$primary-color: #9079c0;
+$accent-color: #6d3dd1;
+$text-color: #2d2d2d;
+$dark-color: #1a082c;
+$light-color: #fafafa;
+$border-color: #dddddd;
+$radius: 4px;
+$gutter: 1rem;
+
+@mixin ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #1a082c;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: $text-color;
+  transition: all linear 0.3s;
+
+  &:hover {
+    color: $accent-color;
+    text-decoration: underline;
+  }
+}
+
+button {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  transition: all linear 0.2s;
+}
+
+.empty-text {
+  color: $light-color;
+  text-align: center;
+  font-size: 1.5rem;
+  padding: $gutter;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+
+  &__name {
+    margin-left: $gutter/1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__avatar {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: $gutter/4 $gutter/2;
+  border-radius: $radius;
+  background-color: $primary-color;
+  color: $light-color;
+  margin-top: $gutter/6;
+  margin-bottom: $gutter/6;
+
+  &:not(:last-child) {
+    margin-right: $gutter/4;
+  }
+
+  &:hover {
+    background-color: darken($primary-color, 8%);
+  }
+}
+
+@import "./table";
+@import "./media";
