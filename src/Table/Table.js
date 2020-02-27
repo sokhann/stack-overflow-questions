@@ -1,43 +1,5 @@
 import React from "react";
-import TableRow from "./components/TableRow";
-
-// таблица
-const TableContainer = ({ items, sortByDate }) => {
-  const itemsList =
-    items &&
-    items.map(el => (
-      <TableRow
-        key={el.question_id}
-        ownerAvatar={el.owner.profile_image}
-        ownerName={el.owner.display_name}
-        ownerLink={el.owner.link}
-        title={el.title}
-        questionLink={el.link}
-        tags={el.tags}
-        date={el.creation_date}
-      />
-    ));
-
-  return (
-    <div className="table">
-      <div className="table__row table__header">
-        <button className="table__cell" disabled>
-          Автор
-        </button>
-        <button className="table__cell" disabled>
-          Заголовок вопроса
-        </button>
-        <button className="table__cell" disabled>
-          Теги
-        </button>
-        <button className="table__cell" onClick={sortByDate}>
-          Дата создания
-        </button>
-      </div>
-      <div className="table__body">{itemsList}</div>
-    </div>
-  );
-};
+import TableContainer from "./components/TableContainer";
 
 class Table extends React.Component {
   constructor(props) {
@@ -46,7 +8,6 @@ class Table extends React.Component {
       error: null,
       isLoaded: false,
       collection: [],
-      sortedCollection: [],
       order: "desc"
     };
   }
@@ -56,7 +17,7 @@ class Table extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    //перегрузить при изменении порядка сортировки
+    // reload data when sort order change
     if (prevState.order !== this.state.order) {
       this.loadData();
     }
@@ -66,10 +27,10 @@ class Table extends React.Component {
     let url = `https://api.stackexchange.com/2.2/questions?order=${this.state.order}&sort=creation&site=stackoverflow`;
     fetch(url)
       .then(res => (res.ok ? res.json() : Promise.reject(res)))
-      .then(result => {
+      .then(data => {
         this.setState({
           isLoaded: true,
-          collection: result.items
+          collection: data.items
         });
       })
       .catch(e => {
@@ -80,6 +41,7 @@ class Table extends React.Component {
       });
   }
 
+  // changing sort order
   toggleDateSorter = () => {
     // debugger;
     if (this.state.order === "desc") {

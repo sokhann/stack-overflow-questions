@@ -1,12 +1,13 @@
 import React from "react";
 import moment from "moment";
+import he from "he"; // HTML entity encoder/decoder
 
-// элемент тега
+// tag element
 const TagItem = ({ tag }) => {
   return <button className="tag">{tag}</button>;
 };
 
-// строка таблицы
+// row of table
 const TableRow = ({
   ownerAvatar,
   ownerName,
@@ -19,7 +20,6 @@ const TableRow = ({
   const tagList = tags.map((el, index) => <TagItem tag={el} key={index} />);
   const dt = moment
     .unix(date)
-    // .utc()
     .format("DD.MM.YY HH:mm:ss")
     .toString();
   return (
@@ -41,12 +41,12 @@ const TableRow = ({
               }}
             />
           </div>
-          <p className="user__name">{ownerName}</p>
+          <p className="user__name">{he.decode(ownerName)}</p>
         </a>
       </div>
       <div className="table__cell">
         <a target="_blank" rel="noopener noreferrer" href={questionLink}>
-          {title}
+          {he.decode(title)}
         </a>
       </div>
       <div className="table__cell">{tagList}</div>

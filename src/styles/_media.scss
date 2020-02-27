@@ -17,10 +17,12 @@ $screen-xxl: 1680px;
   #root {
     padding: 0;
   }
+
   .table {
     border-radius: 0;
+
     &__body {
-      max-height: calc(100vh - 40px);
+      max-height: calc(100vh - 42px);
     }
   }
 }
@@ -32,20 +34,24 @@ $screen-xxl: 1680px;
         text-align: left;
       }
     }
+
     &__body {
       .table__cell {
         &:nth-child(2) {
           text-overflow: unset;
           white-space: normal;
         }
+
         &:nth-child(4) {
           text-align: left;
         }
       }
     }
   }
+
   .user {
     display: block;
+
     &__name {
       margin-left: 0;
       margin-top: $gutter/3;

@@ -12,6 +12,7 @@
   justify-content: space-between;
   align-items: center;
   padding: $gutter/2 0;
+  background-color: $light-color;
 
   &:not(:last-child) {
     border-bottom: 1px solid $border-color;
@@ -33,10 +34,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    opacity: 0.5;
+    opacity: 0.8;
 
     &:hover {
       color: $accent-color;
+      opacity: 1;
     }
 
     &:disabled {
@@ -80,5 +82,10 @@
     &:nth-child(odd) {
       background-color: #f2eef6;
     }
+  }
+
+  .empty-text {
+    color: $text-color;
+    font-size: 1rem;
   }
 }
