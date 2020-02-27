@@ -16,13 +16,6 @@ class Table extends React.Component {
     this.loadData();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // reload data when sort order change
-    if (prevState.order !== this.state.order) {
-      this.loadData();
-    }
-  }
-
   loadData() {
     let url = `https://api.stackexchange.com/2.2/questions?order=${this.state.order}&sort=creation&site=stackoverflow`;
     fetch(url)
@@ -55,8 +48,28 @@ class Table extends React.Component {
     }
   };
 
+  // sorting data
+  sortByDate() {
+    const { order, collection } = this.state;
+    let data = collection;
+    data.sort((a, b) => {
+      let dateA = a.creation_date,
+        dateB = b.creation_date;
+      if (dateA < dateB) {
+        return order === "asc" ? -1 : 1;
+      }
+      if (dateA > dateB) {
+        return order === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+    return data;
+  }
+
   render() {
-    const { error, isLoaded, collection } = this.state;
+    const { error, isLoaded } = this.state;
+
+    let items = this.sortByDate();
 
     let content;
 
@@ -73,7 +86,7 @@ class Table extends React.Component {
       content = <p className="empty-text">Загрузка...</p>;
     } else {
       content = (
-        <TableContainer items={collection} sortByDate={this.toggleDateSorter} />
+        <TableContainer items={items} sortByDate={this.toggleDateSorter} />
       );
     }
 
